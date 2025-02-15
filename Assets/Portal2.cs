@@ -12,11 +12,8 @@ public class Portal2 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-            if (other.gameObject.layer == 7) {
-                other.gameObject.layer = 8;
-            } else if (other.gameObject.layer == 8) {
-                other.gameObject.layer = 7;
-            }
+            other.gameObject.GetComponent<PlayerMovement>().portalNo = 2;
+            Debug.Log("portal 2");
         }
     }
 

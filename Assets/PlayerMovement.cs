@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveDirection;
     float ladderScaling;
     GameObject onLadder;
+    GameObject onPortal;
+    public int portalNo;
     private float ladderTopY;
     private float ladderBottomY;
 
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         ladderScaling = 0f;
         onLadder = null;
         isClimbing = false;
+        portalNo = -1;
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -30,12 +33,19 @@ public class PlayerMovement : MonoBehaviour
             ladderTopY = ladderBounds.max.y;
             ladderBottomY = ladderBounds.min.y;
         }
+        if (other.tag == "Portal") {
+            onPortal = other.gameObject;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.tag == "Ladder") {
             onLadder = null;
             isClimbing = false;
+        }
+        if (other.tag == "Portal") {
+            onPortal = null;
+            portalNo = -1;
         }
     }
 
@@ -48,6 +58,31 @@ public class PlayerMovement : MonoBehaviour
         if (onLadder != null) {
             isClimbing = true;
             ladderScaling = val.Get<float>();
+        }
+    }
+
+    void OnPortalActivate(InputValue val) {
+        Debug.Log(onPortal);
+        if (onPortal != null) {
+            if (portalNo == 1) {
+                if (gameObject.layer == 6) {
+                    gameObject.layer = 7;
+                } else if (gameObject.layer == 7) {
+                    gameObject.layer = 6;
+                }
+            } else if (portalNo == 2) {
+                if (gameObject.layer == 7) {
+                    gameObject.layer = 8;
+                } else if (gameObject.layer == 8) {
+                    gameObject.layer = 7;
+                }
+            } else if (portalNo == 3) {
+                if (gameObject.layer == 9) {
+                    gameObject.layer = 8;
+                } else if (gameObject.layer == 8) {
+                    gameObject.layer = 9;
+                }
+            }
         }
     }
 
