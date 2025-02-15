@@ -17,6 +17,12 @@ public class Portal2 : MonoBehaviour
         }
     }
 
+    void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.tag == "Player") {
+            other.gameObject.GetComponent<PlayerMovement>().portalNo = -1;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

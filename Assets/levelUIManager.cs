@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class levelUIManager : MonoBehaviour
 {
+    public GameObject levelCompletePanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +25,9 @@ public class levelUIManager : MonoBehaviour
     public void NextLevel() {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentIndex + 1);
+    }
+
+    public void showPanel() {
+        levelCompletePanel.SetActive(true);
     }
 }

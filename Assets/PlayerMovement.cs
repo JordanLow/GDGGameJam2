@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     bool isClimbing;
     Vector2 moveDirection;
     float ladderScaling;
-    GameObject onLadder;
+    public GameObject onLadder;
     GameObject onPortal;
     public int portalNo;
     private float ladderTopY;
@@ -26,32 +26,33 @@ public class PlayerMovement : MonoBehaviour
         portalNo = -1;
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Ladder") {
-            onLadder = other.gameObject;
-            Bounds ladderBounds = other.bounds;
-            ladderTopY = ladderBounds.max.y;
-            ladderBottomY = ladderBounds.min.y;
-        }
-        if (other.tag == "Portal") {
-            onPortal = other.gameObject;
+    void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Player") {
+            GameObject canvas = GameObject.Find("Canvas");
+            if (canvas) {
+                Debug.Log("game over");
+                canvas.GetComponent<levelUIManager>().showPanel();
+
+            }
         }
     }
 
-    void OnTriggerExit2D(Collider2D other) {
-        if (other.tag == "Ladder") {
-            onLadder = null;
-            isClimbing = false;
-        }
-        if (other.tag == "Portal") {
-            onPortal = null;
-            portalNo = -1;
-        }
+    public void enableClimb(GameObject other, Bounds bounds) {
+        onLadder = other;
+        this.ladderTopY = bounds.max.y;
+        this.ladderBottomY = bounds.min.y;
+    }
+
+    public void disableClimb() {
+        onLadder = null;
+        isClimbing = false;
+        GetComponent<Animator>().speed = 1;
     }
 
     void OnMove(InputValue val) {
         isClimbing = false;
         moveDirection = val.Get<Vector2>();
+        GetComponent<Animator>().SetBool("isMoving", moveDirection.magnitude > 0 ? true : false);
     }
 
     void OnScaleLadder(InputValue val) {
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnPortalActivate(InputValue val) {
         Debug.Log(onPortal);
-        if (onPortal != null) {
+
             if (portalNo == 1) {
                 if (gameObject.layer == 6) {
                     gameObject.layer = 7;
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
                     gameObject.layer = 9;
                 }
             }
-        }
+
     }
 
     // Update is called once per frame
@@ -109,15 +110,25 @@ public class PlayerMovement : MonoBehaviour
                 GetComponent<Animator>().speed = 1;
             }
         } else { 
-            rb.gravityScale = 50f;
+            if (onLadder == null) {
+                rb.gravityScale = 100f;
+            } else {
+                rb.gravityScale = 50f;
+            }
             rb.mass = 20;
             if (moveDirection.x > 0) transform.localScale = new Vector3(1, 1, 1);
             if (moveDirection.x < 0) transform.localScale = new Vector3(-1, 1, 1);
+            
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
             GetComponent<Animator>().SetBool("isClimbing", false);
-            GetComponent<Animator>().SetBool("isMoving", rb.velocity.magnitude > 0 ? true : false);
+            
         }
         rb.velocity.Normalize();
         rb.velocity = rb.velocity * speed;
+        if (rb.velocity.y < 0) {
+            rb.velocity = new Vector2(rb.velocity.x * 0.2f, rb.velocity.y);
+        }
     }
+
+    
 }
