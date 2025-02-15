@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (isClimbing) {
+            GetComponent<Animator>().SetBool("isClimbing", true);
             rb.gravityScale = 0f;
             rb.velocity = new Vector2(0, ladderScaling);
             if (rb.position.y >= ladderTopY - 0.1f && rb.velocity.y > 0)
@@ -66,11 +67,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0); // Stop upward movement
             }
+            if (rb.velocity.y == 0) {
+                GetComponent<Animator>().speed = 0;
+            } else {
+                GetComponent<Animator>().speed = 1;
+            }
         } else { 
-            rb.gravityScale = 30f;
+            rb.gravityScale = 50f;
             if (moveDirection.x > 0) transform.localScale = new Vector3(1, 1, 1);
             if (moveDirection.x < 0) transform.localScale = new Vector3(-1, 1, 1);
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+            GetComponent<Animator>().SetBool("isClimbing", false);
             GetComponent<Animator>().SetBool("isMoving", rb.velocity.magnitude > 0 ? true : false);
         }
         rb.velocity.Normalize();
