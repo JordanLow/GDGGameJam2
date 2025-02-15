@@ -34,12 +34,12 @@
                 },
                 {
                     "name": "ScaleLadder",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "aaa680fb-03f4-40c7-b2ba-ef0645f38597",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -265,12 +265,12 @@
                 },
                 {
                     "name": "ScaleLadder",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "3ed0300e-6764-40b9-9b6f-f17b9e3110e6",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
