@@ -56,9 +56,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (isClimbing) {
+            rb.gravityScale = 0f;
             rb.velocity = new Vector2(0, ladderScaling);
-            //rb.MovePosition(new Vector2(rb.position.x, Mathf.Clamp(rb.position.y, ladderBottomY, ladderTopY - 0.1f)));
+            if (rb.position.y >= ladderTopY - 0.1f && rb.velocity.y > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0); // Stop upward movement
+            }
+            if (rb.position.y <= ladderBottomY && rb.velocity.y < 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0); // Stop upward movement
+            }
         } else { 
+            rb.gravityScale = 30f;
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
         }
         rb.velocity.Normalize();
