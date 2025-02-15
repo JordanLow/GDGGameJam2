@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         } else { 
             rb.gravityScale = 30f;
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+            GetComponent<Animator>().SetBool("isMoving", rb.velocity.magnitude > 0 ? true : false);
         }
         rb.velocity.Normalize();
         rb.velocity = rb.velocity * speed;
