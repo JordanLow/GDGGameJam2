@@ -1018,6 +1018,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Reset",
+            "id": "8101214e-0237-4f09-8fe3-af63dd6ddbd0",
+            "actions": [
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "59b61c0e-4f84-41c1-9569-8f72d86fd7d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "26cd0337-a111-4ca1-90d3-375624b8c297",
+                    "path": "<Keyboard>/#(R)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
