@@ -11942,7 +11942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8711682163676342155, guid: 8b4f398de1c27419e8661b7d58a5db76, type: 3}
       propertyPath: m_Name
-      value: portal_green_blue
+      value: portal_yellow_green
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
