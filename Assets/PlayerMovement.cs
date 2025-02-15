@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         if (isClimbing) {
             GetComponent<Animator>().SetBool("isClimbing", true);
             rb.gravityScale = 0f;
+            rb.mass = 0;
             rb.velocity = new Vector2(0, ladderScaling);
             if (rb.position.y >= ladderTopY - 0.1f && rb.velocity.y > 0)
             {
@@ -109,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } else { 
             rb.gravityScale = 50f;
+            rb.mass = 20;
             if (moveDirection.x > 0) transform.localScale = new Vector3(1, 1, 1);
             if (moveDirection.x < 0) transform.localScale = new Vector3(-1, 1, 1);
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
