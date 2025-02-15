@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sizeAlign : MonoBehaviour
+public class SizeAlign : MonoBehaviour
 {
     // Start is called before the first frame update
 
